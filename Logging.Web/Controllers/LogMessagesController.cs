@@ -2,17 +2,15 @@
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DataAccess.DataContext;
 using Entities;
 using Logger;
 using System;
+using Logging.Web.Hubs;
 
 namespace Logging.Web.Controllers
 {
     public class LogMessagesController : ApiController
     {
-        private LogMessgeContext db = new LogMessgeContext();
-
         private ILogger _logger;
 
         public LogMessagesController(ILogger logger)
@@ -63,16 +61,9 @@ namespace Logging.Web.Controllers
 
             _logger.WriteLogMessage(logMessage);
 
-            return CreatedAtRoute("DefaultApi", new { id = logMessage.ID }, logMessage);
-        }
+            LogHub.PublishMessage(logMessage);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return CreatedAtRoute("DefaultApi", new { id = logMessage.ID }, logMessage);
         }
     }
 }

@@ -10,5 +10,11 @@ namespace Logging.Web.Hubs
             var context = GlobalHost.ConnectionManager.GetHubContext<LogHub>();
             context.Clients.All.publishMessage(message);
         }
+
+        public static void UpdateMessage(LogMessage message)
+        {
+            var context = GlobalHost.ConnectionManager.GetHubContext<LogHub>();
+            context.Clients.All.updateMessage(message);
+        }
     }
 }

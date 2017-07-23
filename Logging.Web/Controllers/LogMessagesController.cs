@@ -24,6 +24,9 @@ namespace Logging.Web.Controllers
             return _logger.GetLogMessages();
         }
 
+        [ResponseType(typeof(void))]
+
+
         // PUT: api/LogMessages/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutLogMessage(int id, LogMessage logMessage)
@@ -46,6 +49,8 @@ namespace Logging.Web.Controllers
             {
                 return NotFound();
             }
+
+            LogHub.UpdateMessage(logMessage);
 
             return StatusCode(HttpStatusCode.NoContent);
         }

@@ -24,7 +24,7 @@ namespace Logger
 
         public IQueryable<LogMessage> GetLogMessages()
         {
-            return _context.LogMessages.Where(log => log.IsRead == false);
+            return _context.LogMessages.Where(log => log.IsRead == false).OrderBy(log => log.Created);
         }
 
         public void UpdateLogMessage(int id, LogMessage message)

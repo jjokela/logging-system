@@ -4,6 +4,8 @@ using System.Linq;
 using System.Data.Entity;
 using DataAccess.DataContext;
 using System.Data.Entity.Infrastructure;
+using DataAccess.Migrations;
+using EntityFramework.BulkExtensions;
 
 namespace Logger
 {
@@ -24,7 +26,7 @@ namespace Logger
 
         public IQueryable<LogMessage> GetLogMessages()
         {
-            return _context.LogMessages.Where(log => log.IsRead == false).OrderBy(log => log.Created);
+            return _context.LogMessages.Where(log => log.IsRead == false).OrderByDescending(log => log.Created);
         }
 
         public void UpdateLogMessage(int id, LogMessage message)
@@ -38,7 +40,7 @@ namespace Logger
             catch (DbUpdateConcurrencyException)
             {
                 if (!LogMessageExists(id))
-                {                    
+                {
                     throw new ArgumentException();
                 }
                 else
@@ -51,6 +53,13 @@ namespace Logger
         public void WriteLogMessage(LogMessage message)
         {
             _context.LogMessages.Add(message);
+            _context.SaveChanges();
+        }
+
+        public void ResetLogs()
+        {
+            _context.Database.ExecuteSqlCommand("delete from LogMessages");
+            _context.BulkInsertOrUpdate(SeedData.GetSeedData(), InsertOptions.OutputIdentity);
             _context.SaveChanges();
         }
 

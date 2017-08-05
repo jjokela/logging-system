@@ -70,5 +70,13 @@ namespace Logging.Web.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = logMessage.ID }, logMessage);
         }
+
+        [ResponseType(typeof(void))]
+        [Route("api/ResetLogs")]
+        public IHttpActionResult ResetLogs()
+        {
+            _logger.ResetLogs();
+            return StatusCode(HttpStatusCode.NoContent);
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace Logger
         void UpdateLogMessage(int id, LogMessage message);
 
         IQueryable<LogMessage> GetLogMessages();
+
+        void ResetLogs();
     }
 }

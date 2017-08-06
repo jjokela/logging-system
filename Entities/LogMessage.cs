@@ -5,6 +5,7 @@ namespace Entities
 {
     public class LogMessage
     {
+        [Key]
         public int ID { get; set; }
         [Required]
         public string Title { get; set; }

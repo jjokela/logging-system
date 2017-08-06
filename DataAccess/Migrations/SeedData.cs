@@ -11,6 +11,7 @@ namespace DataAccess.Migrations
     {
         public static List<LogMessage> GetSeedData()
         {
+            var date = DateTime.Parse("2017-08-06 7:34:42Z");
             var messages = new List<LogMessage> {
 
                 new LogMessage
@@ -18,7 +19,7 @@ namespace DataAccess.Migrations
                     MessageType = MessageType.Error,
                     Title = "Something went wrong!",
                     Message = "Something went wrong when trying to initialize stuff or something.",
-                    Created = DateTime.Now,
+                    Created = date,
                     IsRead = false
                 },
                 new LogMessage
@@ -26,7 +27,7 @@ namespace DataAccess.Migrations
                     MessageType = MessageType.Success,
                     Title = "Managed to run stuff!",
                     Message = "Everything is smooth & peachy",
-                    Created = DateTime.Now,
+                    Created = date,
                     IsRead = false
                 },
                 new LogMessage
@@ -34,7 +35,7 @@ namespace DataAccess.Migrations
                     MessageType = MessageType.Warning,
                     Title = "Uh oh, something might be wrong",
                     Message = "...but not neccessarily is. This is just a warning.",
-                    Created = DateTime.Now,
+                    Created = date,
                     IsRead = false
                 },
                 new LogMessage
@@ -42,7 +43,7 @@ namespace DataAccess.Migrations
                     MessageType = MessageType.Information,
                     Title = "This is just some general notification",
                     Message = "Might be worth logging it, tho",
-                    Created = DateTime.Now,
+                    Created = date,
                     IsRead = false
                 }
             };
